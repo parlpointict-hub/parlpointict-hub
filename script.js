@@ -1,75 +1,107 @@
-// Mobile navigation menu
 const toggle = document.querySelector('.menu-toggle');
 const nav = document.querySelector('.nav-links');
-
 if (toggle && nav) {
   toggle.addEventListener('click', () => {
     const open = nav.classList.toggle('open');
-
     toggle.setAttribute('aria-expanded', String(open));
-    toggle.setAttribute(
-      'aria-label',
-      open ? 'Close navigation' : 'Open navigation'
-    );
+    toggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
   });
-
-  nav.querySelectorAll('a').forEach(link =>
-    link.addEventListener('click', () => {
-      nav.classList.remove('open');
-      toggle.setAttribute('aria-expanded', 'false');
-    })
-  );
+  nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+    nav.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+  }));
 }
+document.getElementById('year').textContent = new Date().getFullYear();
 
-// Automatic copyright year
-const yearElement = document.getElementById('year');
-
-if (yearElement) {
-  yearElement.textContent = new Date().getFullYear();
-}
-
-// Contact form
+// Contact form: prepare the message for the visitor's chosen sending channel.
 const contactForm = document.getElementById('contactForm');
-
 if (contactForm) {
   contactForm.addEventListener('submit', (event) => {
     event.preventDefault();
-
     const name = document.getElementById('contactName').value.trim();
     const reply = document.getElementById('contactEmail').value.trim();
     const subject = document.getElementById('contactSubject').value.trim();
     const message = document.getElementById('contactMessage').value.trim();
     const method = document.getElementById('deliveryMethod').value;
-
-    // Contact message including Parlpoint ICT website
-    const body = `Hello Parlpoint ICT,
-
-Name: ${name}
-Contact: ${reply || 'Not provided'}
-Subject: ${subject}
-
-Message:
-${message}
-
-Website: https://www.parlpointict.com`;
-
-    // WhatsApp
+    const publicSiteUrl = 'https://parlpointict-hub.github.io/parlpointict-hub/';
+    const body = `Hello Parlpoint ICT,\n\nName: ${name}\nContact: ${reply || 'Not provided'}\nSubject: ${subject}\n\nMessage:\n${message}\n\nWebsite: ${publicSiteUrl}`;
     if (method === 'whatsapp') {
-      window.open(
-        `https://wa.me/254754910014?text=${encodeURIComponent(body)}`,
-        '_blank',
-        'noopener'
-      );
-
-    // Email
+      window.open(`https://wa.me/254754910014?text=${encodeURIComponent(body)}`, '_blank', 'noopener');
     } else if (method === 'email') {
-      window.location.href =
-        `mailto:parlpointict@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-    // SMS
+      window.location.href = `mailto:parlpointict@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     } else {
-      window.location.href =
-        `sms:+254754910014?body=${encodeURIComponent(body)}`;
+      window.location.href = `sms:+254114343661?body=${encodeURIComponent(body)}`;
     }
   });
 }
+
+// Horizontal service carousels: click arrows to browse one product at a time.
+document.querySelectorAll('.carousel-shell').forEach((shell) => {
+  const track = shell.querySelector('.product-track');
+  const prev = shell.querySelector('.carousel-arrow.prev');
+  const next = shell.querySelector('.carousel-arrow.next');
+  const step = () => {
+    const card = track.querySelector('.product-card');
+    return card ? card.getBoundingClientRect().width + 16 : 280;
+  };
+  prev?.addEventListener('click', () => track.scrollBy({left: -step(), behavior: 'smooth'}));
+  next?.addEventListener('click', () => track.scrollBy({left: step(), behavior: 'smooth'}));
+});
+
+// Discuss-project and product-order actions prepare the contact form.
+// Visitors can choose WhatsApp or SMS before sending.
+const publicSiteUrl = 'https://parlpointict-hub.github.io/parlpointict-hub/';
+const contactNameInput = document.getElementById('contactName');
+const contactSubjectInput = document.getElementById('contactSubject');
+const contactMessageInput = document.getElementById('contactMessage');
+const deliveryMethodSelect = document.getElementById('deliveryMethod');
+const contactSection = document.getElementById('contact');
+
+function prepareContact(subject, message) {
+  if (contactSubjectInput) contactSubjectInput.value = subject;
+  if (contactMessageInput) contactMessageInput.value = message + `\n\nWebsite: ${publicSiteUrl}`;
+  if (deliveryMethodSelect) deliveryMethodSelect.value = 'whatsapp';
+  contactSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  window.setTimeout(() => contactNameInput?.focus({ preventScroll: true }), 450);
+}
+
+document.querySelectorAll('[data-order]').forEach((link) => {
+  link.addEventListener('click', (event) => {
+    event.preventDefault();
+    const product = link.getAttribute('data-order');
+    prepareContact(
+      `Order / Quotation: ${product}`,
+      `Hello Parlpoint ICT, I would like to place an order or request a quotation for: ${product}. Please contact me with the next steps.`
+    );
+  });
+});
+
+document.querySelector('[data-discuss-project]')?.addEventListener('click', () => {
+  prepareContact(
+    'Project Discussion',
+    'Hello Parlpoint ICT, I would like to discuss a project. Please get in touch with me.'
+  );
+});
+
+// Gentle automatic carousel movement; pause while a visitor interacts with a collection.
+document.querySelectorAll('.product-track').forEach((track) => {
+  let pause = false;
+  let direction = 1;
+  const shell = track.closest('.carousel-shell');
+  const pauseOn = () => { pause = true; };
+  const resume = () => { pause = false; };
+  shell?.addEventListener('mouseenter', pauseOn);
+  shell?.addEventListener('mouseleave', resume);
+  shell?.addEventListener('focusin', pauseOn);
+  shell?.addEventListener('focusout', resume);
+  shell?.addEventListener('touchstart', pauseOn, {passive:true});
+  shell?.addEventListener('touchend', () => setTimeout(resume, 1800), {passive:true});
+  window.setInterval(() => {
+    if (pause || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const max = track.scrollWidth - track.clientWidth;
+    if (max <= 0) return;
+    if (track.scrollLeft >= max - 4) direction = -1;
+    if (track.scrollLeft <= 4) direction = 1;
+    track.scrollBy({left: direction * 1.2, behavior: 'auto'});
+  }, 30);
+});

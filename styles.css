@@ -14,3 +14,35 @@
 .contact-form textarea{resize:vertical;min-height:110px}
 .contact-form .contact-button{border:0;cursor:pointer;font:inherit;font-weight:700}
 .form-note{font-size:11px;line-height:1.6;color:#7b8da2;margin:3px 0 0}
+
+/* Parlpoint ICT expanded brand and service catalogue */
+.brand{display:flex;align-items:center;gap:12px;min-width:300px}.brand img{width:145px;height:76px;object-fit:contain}.brand-name{font:800 19px Manrope,sans-serif;letter-spacing:.4px;color:#092d68;line-height:1.05;white-space:nowrap}.brand-name b{color:#079fe8}.brand-name small{display:block;font:600 9px "DM Sans",sans-serif;letter-spacing:.3px;color:#5f7694;margin-top:5px}.hero .mission-vision{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0 12px;max-width:660px}.mission-vision>div{padding:14px 16px;border:1px solid rgba(122,211,255,.25);border-radius:12px;background:rgba(255,255,255,.06);display:flex;flex-direction:column;gap:5px}.mission-vision b{font:800 11px Manrope;color:#65d4ff;letter-spacing:1.3px}.mission-vision span{font-size:12px;line-height:1.55;color:#d8e8f8}.expertise-block{margin:24px 0 15px;padding:22px;border-radius:14px;background:#f4f9fd;border:1px solid #e2edf5}.expertise-block h3{font-size:17px;color:#0a316d;margin-bottom:15px}.expertise-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px 16px}.expertise-grid span{font-size:12px;color:#405873;padding-left:18px;position:relative}.expertise-grid span:before{content:"✓";position:absolute;left:0;color:#079fe8;font-weight:900}.profile-note{font-size:11px!important;color:#8291a3!important;font-style:italic}.service-overview{margin-bottom:75px}.service-card .text-link{font-size:12px;margin-top:17px}.catalogue-heading{text-align:center;max-width:750px;margin:0 auto 35px}.catalogue-heading h2{margin-bottom:12px}.catalogue-heading>p:last-child{color:#718096;font-size:14px}.catalogue-group{margin:34px 0 52px;scroll-margin-top:100px}.catalogue-title{display:flex;align-items:center;gap:15px;margin-bottom:17px}.catalogue-icon{height:48px;width:48px;border-radius:14px;background:#dff4ff;color:#087fbd;display:grid;place-items:center;font-size:24px;flex:none}.catalogue-title h3{margin:0 0 3px;color:#102d58;font-size:21px}.catalogue-title p{margin:0;color:#718096;font-size:12px}.carousel-shell{position:relative}.product-track{display:flex;gap:16px;overflow-x:auto;scroll-behavior:smooth;padding:5px 3px 18px;scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:#9dcde5 #e8f1f7}.product-card{flex:0 0 255px;scroll-snap-align:start;background:#fff;border:1px solid #dfe9f2;border-radius:14px;overflow:hidden;box-shadow:0 7px 20px rgba(10,45,90,.055)}.product-card img{display:block;width:100%;height:155px;object-fit:cover;background:#eaf2f8}.product-card>div{padding:15px}.product-card h4{font:800 15px Manrope;color:#102d58;margin:0 0 5px}.product-card p{font-size:12px;line-height:1.5;color:#718096;min-height:37px;margin:0 0 10px}.product-card b{display:block;color:#087fbd;font:800 14px Manrope;margin-bottom:12px}.place-order{display:inline-flex;background:#082b69;color:#fff;border-radius:7px;padding:8px 13px;font-size:11px;font-weight:800}.place-order:hover{background:#079fe8;color:#052453}.carousel-arrow{position:absolute;z-index:2;top:48%;transform:translateY(-50%);height:38px;width:38px;border:0;border-radius:50%;background:#092c67;color:#fff;font-size:26px;line-height:1;box-shadow:0 5px 15px #092c6733;cursor:pointer}.carousel-arrow.prev{left:-16px}.carousel-arrow.next{right:-16px}.support-panel{display:flex;align-items:center;justify-content:space-between;gap:30px;padding:30px;background:#fff;border:1px solid #dce9f2;border-radius:18px;box-shadow:0 12px 30px rgba(8,40,91,.06);scroll-margin-top:100px}.support-panel>div{max-width:790px}.support-panel h3{font:800 24px Manrope;color:#102d58;margin-bottom:10px}.support-panel p{font-size:13px;color:#65788f}.support-panel ul{display:grid;grid-template-columns:1fr 1fr;gap:8px 22px;padding-left:18px;color:#425b76;font-size:12px}.support-panel li::marker{color:#079fe8}.support-panel .compliance-note{font-size:11px;color:#8b6b32;background:#fff8e8;padding:10px 12px;border-radius:8px;margin:12px 0 0}.support-panel .btn{flex:none;white-space:nowrap}
+@media(max-width:900px){.brand{min-width:0}.brand img{width:120px}.brand-name{font-size:16px}.support-panel{align-items:flex-start;flex-direction:column}.support-panel .btn{align-self:flex-start}}
+@media(max-width:680px){.brand{gap:5px}.brand img{width:90px;height:58px}.brand-name{font-size:13px}.brand-name small{font-size:7px}.hero .mission-vision{grid-template-columns:1fr}.expertise-grid,.support-panel ul{grid-template-columns:1fr}.product-card{flex-basis:225px}.carousel-arrow.prev{left:-9px}.carousel-arrow.next{right:-9px}.catalogue-title h3{font-size:18px}.support-panel{padding:22px}.service-overview{margin-bottom:55px}}
+
+
+/* Director hands-on service gallery */
+.director-work-section{background:#fff}
+.director-work-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.director-work-card{overflow:hidden;border:1px solid #e1eaf3;border-radius:17px;background:#fff;box-shadow:0 12px 32px rgba(8,40,91,.07)}
+.director-work-card img{display:block;width:100%;aspect-ratio:1.52/1;object-fit:cover;background:#eaf2f8}
+.director-work-card>div{padding:22px 24px 24px}
+.director-work-card span{font-size:10px;letter-spacing:1.5px;font-weight:800;color:#079fe8}
+.director-work-card h3{font-size:20px;color:#102d58;margin:7px 0 6px}
+.director-work-card p{font-size:13px;color:#718096;margin:0}
+.visual-disclaimer{max-width:850px;margin:22px auto 0;text-align:center;font-size:11px;line-height:1.6;color:#8291a3}
+@media(max-width:680px){.director-work-grid{grid-template-columns:1fr}.director-work-card>div{padding:18px}.director-work-card h3{font-size:18px}}
+
+/* Director portrait fills its hero photo field without cropping the supplied portrait. */
+.visual-card{width:min(410px,92%);height:535px;border:5px solid rgba(255,255,255,.18);border-radius:28px;background:linear-gradient(160deg,#f5f9ff,#dce7f1);}
+.visual-card img{width:100%;height:100%;object-fit:contain;object-position:center bottom;padding:0;}
+.director-work-grid-five{grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin-top:22px}
+.director-work-grid-five .director-work-card img{aspect-ratio:1.15/1}
+.director-work-grid-five .director-work-card>div{padding:15px 14px 17px}
+.director-work-grid-five .director-work-card h3{font-size:15px;line-height:1.25}
+.director-work-grid-five .director-work-card p{font-size:11px;line-height:1.5}
+.more-work-heading{margin:48px 0 12px;text-align:center}
+.more-work-heading .eyebrow{margin-bottom:5px}
+.more-work-heading h3{font-size:25px;color:#102d58;margin:0}
+@media(max-width:1050px){.director-work-grid-five{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:680px){.visual-card{width:min(360px,94%);height:490px}.director-work-grid-five{grid-template-columns:1fr}.director-work-grid-five .director-work-card img{aspect-ratio:1.52/1}}

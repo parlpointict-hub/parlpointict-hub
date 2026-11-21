@@ -40,3 +40,14 @@ Cloudflare Pages free-plan limits: https://developers.cloudflare.com/pages/platf
 The contact form prepares the visitor's message and opens the selected WhatsApp, email or SMS app. The visitor must press Send in that app. A static website cannot send messages directly in the background or trigger an automatic WhatsApp reply.
 
 To enable an automatic reply after a customer messages the business, use WhatsApp Business on the phone registered to +254 754 910 014. Go to Business tools → Greeting message, enable it, paste the text in WHATSAPP_AUTO_REPLY.txt, and save. WhatsApp Business manages this automatic reply, not the website.
+
+
+## Expanded service catalogue update (November 2026)
+- Prominent Parlpoint ICT Ltd brand name and mission / vision statement.
+- Expanded IT professional profile and technical service capabilities.
+- Service catalogues for printing and stationery, branding and advertising, healthcare printing, IT/software/networking, and institutional administrative support.
+- Illustrative service photos, category icons, horizontal auto-moving carousels, prices from the supplied price list, and WhatsApp Place Order links.
+- PAYE, SHA and NSSF administrative/portal support is described as assistance only; statutory filings remain the responsibility of authorised client representatives.
+- Quote and order messages sent from the contact form include the current public URL: https://parlpointict-hub.github.io/parlpointict-hub/
+
+The product photographs are illustrative mock-up images generated for the catalogue. They are not represented as actual completed client commissions or official client logos. Prices marked Quote / Negotiable require confirmation based on quantities, materials, artwork and specifications.
