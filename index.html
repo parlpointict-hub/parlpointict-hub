@@ -274,14 +274,14 @@
                 <button type="button" class="btn btn-outline-dark" id="exportContacts">Export CSV</button>
                 <label class="btn btn-outline-dark" for="importContactsFile">Import CSV</label><input id="importContactsFile" type="file" accept=".csv,text/csv" hidden>
               </div>
-              <form id="contactEditor" class="contact-editor">
+              <div id="contactEditor" class="contact-editor">
                 <input type="hidden" id="editContactId">
                 <div><label for="editContactName">Organisation name</label><input id="editContactName" required placeholder="Organisation name"></div>
                 <div><label for="editContactPhone">Phone number</label><input id="editContactPhone" type="tel" placeholder="e.g. 0712345678"></div>
                 <div><label for="editContactEmail">Email address</label><input id="editContactEmail" type="email" placeholder="name@example.com"></div>
                 <div><label for="editContactStatus">Status</label><select id="editContactStatus"><option>Active</option><option>Inactive</option></select></div>
-                <div class="contact-editor-actions"><button class="btn btn-primary" type="submit" id="saveContact">Add contact</button><button class="btn btn-outline-dark" type="button" id="cancelContactEdit" hidden>Cancel edit</button></div>
-              </form>
+                <div class="contact-editor-actions"><button class="btn btn-primary" type="button" id="saveContact">Add contact</button><button class="btn btn-outline-dark" type="button" id="cancelContactEdit" hidden>Cancel edit</button></div>
+              </div>
               <div class="contact-list-heading"><strong id="contactListTitle">Schools</strong><span id="contactFilteredCount"></span></div>
               <div class="contact-table-wrap"><table class="contact-table"><thead><tr><th><input type="checkbox" id="selectVisibleContacts" aria-label="Select all visible contacts"></th><th>Organisation</th><th>Phone</th><th>Email</th><th>Status</th><th>Actions</th></tr></thead><tbody id="contactTableBody"></tbody></table></div>
               <div class="contact-bulk-actions"><label><input type="checkbox" id="selectAllActive"> Select all active in this category</label><button type="button" class="btn btn-outline-dark" id="deleteSelectedContacts">Delete selected</button><button type="button" class="btn btn-primary" id="useSelectedContacts">Review selected campaign (<span id="selectedContactCount">0</span>)</button></div>
