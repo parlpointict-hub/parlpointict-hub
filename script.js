@@ -254,5 +254,50 @@ If you prefer not to receive further marketing emails from us, reply and let us 
   $('campaignDraftList').addEventListener('click',e=>{const copy=e.target.closest('.campaign-copy'),open=e.target.closest('.campaign-open');if(copy){const item=campaignQueue[Number(copy.dataset.index)];if(item)navigator.clipboard?.writeText(item.message).then(()=>{$('contactCampaignStatus').textContent='Draft copied to clipboard.';}).catch(()=>{$('contactCampaignStatus').textContent='Copy was blocked by the browser; select and copy the draft text.';});}if(open){const i=Number(open.dataset.index);openCampaignDraft(i);}});
   const openCampaignDraft = i => {const item=campaignQueue[i];if(!item||!item.approved)return;const c=item.contact,phone=normalisePhone(c.phone),msg=item.message;if(item.channel==='whatsapp')window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`,'_blank','noopener');else if(item.channel==='sms')window.location.href=`sms:+${phone}?body=${encodeURIComponent(msg)}`;else window.location.href=`mailto:${encodeURIComponent(c.email)}?subject=${encodeURIComponent('Introducing '+$('marketingService').value+' | Parlpoint ICT Ltd')}&body=${encodeURIComponent(msg)}`;campaignIndex=Math.max(campaignIndex,i+1);$('contactCampaignStatus').textContent=`Opened approved draft for ${c.name}. Check the message and press Send in the app yourself. This website has not sent it.`;};
   $('nextContactCampaign').addEventListener('click',()=>{const next=campaignQueue.findIndex((item,i)=>i>=campaignIndex&&item.approved);if(next<0){$('contactCampaignStatus').textContent='No more approved drafts are waiting. Approve another draft or finish the campaign.';$('nextContactCampaign').hidden=true;return;}openCampaignDraft(next);});
-  fetch('contacts_seed.json').then(r=>{if(!r.ok)throw new Error('seed unavailable');return r.json();}).then(seed=>{let saved=null;try{saved=localStorage.getItem(STORAGE_KEY);}catch{}contacts=saved?JSON.parse(saved):seed;contacts=contacts.map(c=>({...c,id:c.id||makeId(),status:c.status==='Inactive'?'Inactive':'Active'}));if(!saved)persist();render();}).catch(()=>{try{contacts=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');}catch{contacts=[];}render();status('Could not load the starter CSV data. Import your CSV files to populate the contact list.');});
+  // Load the published starter database, then apply browser-saved edits.
+  // An empty array left by an earlier failed load must NOT hide the 84 starter records.
+  fetch(new URL('contacts_seed.json', document.baseURI).toString(), { cache: 'no-store' })
+    .then(response => {
+      if (!response.ok) throw new Error(`Contact database returned HTTP ${response.status}`);
+      return response.json();
+    })
+    .then(seed => {
+      if (!Array.isArray(seed)) throw new Error('Contact database format is invalid');
+      let saved = null;
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw !== null) {
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed)) saved = parsed;
+        }
+      } catch (error) {
+        console.warn('Saved contacts could not be read; loading starter contacts instead.', error);
+      }
+      // Use the starter data when storage is missing, corrupt, or empty from a prior failed load.
+      contacts = (saved && saved.length > 0) ? saved : seed;
+      contacts = contacts
+        .filter(c => c && typeof c === 'object')
+        .map(c => ({
+          id: String(c.id || makeId()),
+          category: CATEGORIES.includes(c.category) ? c.category : (c.category === 'Hospitals' ? CATEGORIES[1] : c.category === 'Imaging Centres' ? CATEGORIES[2] : CATEGORIES[0]),
+          name: String(c.name || c.organisation_name || c.organization_name || ''),
+          phone: String(c.phone || c.phone_number || ''),
+          email: String(c.email || ''),
+          status: c.status === 'Inactive' ? 'Inactive' : 'Active'
+        }))
+        .filter(c => c.name.trim());
+      persist();
+      render();
+      status(`Contact database loaded: ${contacts.length} contacts. Search by organisation name or phone number.`);
+    })
+    .catch(error => {
+      console.error('Contact database loading failed:', error);
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        const parsed = raw ? JSON.parse(raw) : [];
+        contacts = Array.isArray(parsed) ? parsed : [];
+      } catch { contacts = []; }
+      render();
+      status('Could not load contacts_seed.json. Check that the file is published beside index.html, then refresh the page.');
+    });
 })();
