@@ -82,26 +82,3 @@ document.querySelector('[data-discuss-project]')?.addEventListener('click', () =
     'Hello Parlpoint ICT, I would like to discuss a project. Please get in touch with me.'
   );
 });
-
-// Gentle automatic carousel movement; pause while a visitor interacts with a collection.
-document.querySelectorAll('.product-track').forEach((track) => {
-  let pause = false;
-  let direction = 1;
-  const shell = track.closest('.carousel-shell');
-  const pauseOn = () => { pause = true; };
-  const resume = () => { pause = false; };
-  shell?.addEventListener('mouseenter', pauseOn);
-  shell?.addEventListener('mouseleave', resume);
-  shell?.addEventListener('focusin', pauseOn);
-  shell?.addEventListener('focusout', resume);
-  shell?.addEventListener('touchstart', pauseOn, {passive:true});
-  shell?.addEventListener('touchend', () => setTimeout(resume, 1800), {passive:true});
-  window.setInterval(() => {
-    if (pause || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const max = track.scrollWidth - track.clientWidth;
-    if (max <= 0) return;
-    if (track.scrollLeft >= max - 4) direction = -1;
-    if (track.scrollLeft <= 4) direction = 1;
-    track.scrollBy({left: direction * 1.2, behavior: 'auto'});
-  }, 30);
-});
