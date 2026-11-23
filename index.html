@@ -21,7 +21,7 @@
       <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false">☰</button>
       <nav class="nav-links" aria-label="Main navigation">
         <a href="#about">About</a><a href="#our-work">Our Work</a><a href="#services">Services</a><a href="#systems">Systems</a>
-        <a href="#clients">Clients</a><a class="nav-cta" href="#contact">Get a quotation</a>
+        <a href="#clients">Clients</a><a href="#message-generator">Marketing</a><a class="nav-cta" href="#contact">Get a quotation</a>
       </nav>
     </div>
   </header>
@@ -236,6 +236,49 @@
           </ul></div></article>
         </div>
         <p class="clients-footnote">Client names are presented as supplied by Parlpoint ICT. Logos and individual project references can be added as they become available.</p>
+      </div>
+    </section>
+
+
+    <section class="section marketing-section" id="message-generator">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Parlpoint ICT marketing desk</p>
+          <h2>Professional messages. <em>Ready in seconds.</em></h2>
+          <p>Enter a prospect’s details once. Generate a personalised SMS, WhatsApp introduction and formal email for your chosen service.</p>
+        </div>
+        <div class="marketing-layout">
+          <form class="marketing-form" id="marketingForm">
+            <h3>Recipient &amp; campaign details</h3>
+            <div class="marketing-fields">
+              <div><label for="prospectName">Recipient’s name</label><input id="prospectName" type="text" placeholder="e.g. Mr. Hassan"></div>
+              <div><label for="prospectRole">Position / title</label><input id="prospectRole" type="text" placeholder="e.g. School Director"></div>
+              <div><label for="prospectOrg">Organisation name</label><input id="prospectOrg" type="text" placeholder="e.g. Likoni Star Academy" required></div>
+              <div><label for="prospectPhone">Recipient phone number</label><input id="prospectPhone" type="tel" placeholder="e.g. 0712 345 678"></div>
+              <div><label for="prospectEmail">Recipient email address</label><input id="prospectEmail" type="email" placeholder="e.g. admin@school.co.ke"></div>
+              <div><label for="marketingService">Service / system to promote</label><select id="marketingService"><option value="School Management Information System (SMIS)">School Management System (SMIS)</option><option value="MEDCORE Hospital Management Information System">MEDCORE HMIS</option><option value="PARLPOINT PHARMAFLOW pharmacy operations system">PARLPOINT PHARMAFLOW</option><option value="Website and software development">Website &amp; software development</option><option value="Networking and Wi-Fi installation">Networking &amp; Wi-Fi</option><option value="Computer and printer repair">Computer &amp; printer repair</option><option value="ICT training and user support">ICT training &amp; user support</option><option value="Printing, branding and graphic design">Printing &amp; branding</option><option value="General ICT solutions">General ICT solutions</option></select></div>
+              <div class="marketing-full"><label for="marketingBenefit">Specific benefit or offer (optional)</label><textarea id="marketingBenefit" rows="3" placeholder="e.g. We can demonstrate how the system tracks fee payments and outstanding balances."></textarea></div>
+            </div>
+            <button class="btn btn-primary marketing-generate" type="submit">Generate all 3 messages <span>✦</span></button>
+            <p class="marketing-help">Messages are prepared for your review. Always confirm the recipient is happy to receive business updates and respect requests not to be contacted.</p>
+            <div class="bulk-marketing-box">
+              <h3>Bulk school &amp; customer list</h3>
+              <p>Add one recipient per line using: <strong>School name, phone number, email (optional)</strong>. You can also import a CSV file with these columns.</p>
+              <textarea id="bulkRecipients" rows="7" placeholder="Likoni Academy, 0712345678, admin@likoniacademy.co.ke&#10;Shikaadabu School, 0722334455, office@shikaadabu.co.ke"></textarea>
+              <div class="bulk-import-row"><label class="btn btn-outline-dark" for="bulkCsv">Import CSV</label><input id="bulkCsv" type="file" accept=".csv,text/csv" hidden><button type="button" class="btn btn-outline-dark" id="loadBulkList">Load recipient list</button></div>
+              <div id="bulkRecipientPreview" class="bulk-preview" aria-live="polite">No recipient list loaded yet.</div>
+              <div class="bulk-controls"><label for="bulkChannel">Sending channel</label><select id="bulkChannel"><option value="whatsapp">WhatsApp</option><option value="sms">SMS</option><option value="email">Email</option></select><button type="button" class="btn btn-primary" id="startBulkSend" disabled>Prepare campaign</button></div>
+              <p class="marketing-help">The system opens one recipient at a time for you to review and press Send. It does not silently send bulk messages. Contact only people who have agreed to receive your business updates.</p>
+            </div>
+          </form>
+          <div class="marketing-results" id="marketingResults" aria-live="polite">
+            <div class="marketing-empty"><span>✉</span><h3>Your messages will appear here</h3><p>Complete the details and select “Generate all 3 messages”. You can edit each draft before copying or opening the sending app.</p></div>
+            <article class="message-card" data-channel="sms" hidden><div class="message-card-head"><div><span class="channel-label">01 · SMS</span><h3>Short business introduction</h3></div><span class="message-count" id="smsCount">0 characters</span></div><textarea id="smsDraft" rows="5" aria-label="SMS message draft"></textarea><div class="message-actions"><button type="button" class="btn btn-outline-dark" data-copy="smsDraft">Copy SMS</button><button type="button" class="btn btn-primary" data-send="sms">Open SMS <span>↗</span></button></div></article>
+            <article class="message-card" data-channel="whatsapp" hidden><div class="message-card-head"><div><span class="channel-label">02 · WHATSAPP</span><h3>Personalised introduction</h3></div></div><textarea id="whatsappDraft" rows="9" aria-label="WhatsApp message draft"></textarea><div class="message-actions"><button type="button" class="btn btn-outline-dark" data-copy="whatsappDraft">Copy WhatsApp</button><button type="button" class="btn btn-primary" data-send="whatsapp">Open WhatsApp <span>↗</span></button></div></article>
+            <article class="message-card" data-channel="email" hidden><div class="message-card-head"><div><span class="channel-label">03 · EMAIL</span><h3>Formal business email</h3></div></div><label for="emailSubjectDraft">Email subject</label><input id="emailSubjectDraft" type="text"><label for="emailDraft">Email body</label><textarea id="emailDraft" rows="11" aria-label="Email message draft"></textarea><div class="message-actions"><button type="button" class="btn btn-outline-dark" data-copy="emailDraft">Copy email</button><button type="button" class="btn btn-primary" data-send="email">Open email <span>↗</span></button></div></article>
+            <p class="marketing-status" id="marketingStatus" role="status"></p>
+          </div>
+        </div>
       </div>
     </section>
 

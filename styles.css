@@ -113,3 +113,39 @@
 .chip-bottom{right:-4px;bottom:25px}
 @media(max-width:900px){.hero-visual{min-height:370px}.visual-card{width:285px;height:285px}.chip-top{left:0;top:18px}.chip-bottom{right:0;bottom:18px}}
 @media(max-width:680px){.hero-visual{min-height:330px;margin-top:12px}.visual-card{width:245px;height:245px}.floating-chip{padding:8px 11px;font-size:10px}.floating-chip b{font-size:14px}.chip-top{top:3px;left:0}.chip-bottom{right:0;bottom:3px}}
+
+
+/* Parlpoint ICT marketing message generator */
+.marketing-section{background:#f4f8fc}
+.marketing-layout{display:grid;grid-template-columns:.92fr 1.08fr;gap:24px;align-items:start}
+.marketing-form,.message-card,.marketing-empty{background:#fff;border:1px solid #e2ebf3;border-radius:16px;padding:26px;box-shadow:0 12px 32px rgba(8,40,91,.045)}
+.marketing-form h3,.message-card h3,.marketing-empty h3{font-family:Manrope;color:#102e5d;margin:0 0 18px}
+.marketing-fields{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.marketing-fields>div,.message-card label{display:flex;flex-direction:column;gap:6px}
+.marketing-fields label,.message-card label{font-size:12px;font-weight:800;color:#314968}
+.marketing-fields input,.marketing-fields select,.marketing-fields textarea,.message-card input,.message-card textarea{width:100%;border:1px solid #d9e4ee;border-radius:9px;padding:12px 13px;font:14px "DM Sans",sans-serif;color:#193251;background:#fbfdff;outline:none}
+.marketing-fields input:focus,.marketing-fields select:focus,.marketing-fields textarea:focus,.message-card input:focus,.message-card textarea:focus{border-color:#12aef0;box-shadow:0 0 0 3px rgba(18,174,240,.1)}
+.marketing-full{grid-column:1/-1}
+.marketing-generate{width:100%;margin-top:19px;border:0;cursor:pointer}
+.marketing-help{font-size:11px;color:#78899c;line-height:1.6;margin:12px 0 0}
+.marketing-results{display:grid;gap:15px}
+.marketing-empty{text-align:center;padding:45px 28px;color:#6b7e94}
+.marketing-empty>span{display:grid;place-items:center;width:54px;height:54px;border-radius:16px;background:#e8f7ff;color:#078fd8;font-size:26px;margin:0 auto 16px}
+.marketing-empty h3{margin-bottom:8px}
+.marketing-empty p{font-size:13px;margin:0;max-width:390px;margin-inline:auto}
+.message-card[hidden]{display:none}
+.message-card-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.message-card-head h3{font-size:17px;margin:4px 0 0}
+.channel-label{font-size:10px;letter-spacing:1.5px;font-weight:900;color:#078fd8}
+.message-count{font-size:11px;color:#718096;white-space:nowrap}
+.message-card textarea{resize:vertical;line-height:1.6;min-height:110px;margin-bottom:12px}
+.message-card input{margin:5px 0 12px}
+.message-actions{display:flex;gap:10px;flex-wrap:wrap}
+.btn-outline-dark{border:1px solid #cbd9e6;color:#17406d;background:#fff}
+.message-actions .btn{padding:10px 15px;font-size:12px;cursor:pointer}
+.marketing-status{font-size:12px;font-weight:700;color:#087ebd;margin:0;min-height:20px}
+@media(max-width:900px){.marketing-layout{grid-template-columns:1fr}}
+@media(max-width:680px){.marketing-fields{grid-template-columns:1fr}.marketing-full{grid-column:auto}.marketing-form,.message-card,.marketing-empty{padding:19px}.message-actions .btn{flex:1}}
+
+/* Bulk marketing recipient manager */
+.bulk-marketing-box{margin-top:22px;padding:20px;border:1px solid #dce8f2;border-radius:14px;background:#f8fbff}.bulk-marketing-box h3{margin:0 0 8px;color:#102e5d;font-family:Manrope}.bulk-marketing-box p{font-size:12px;line-height:1.6;color:#65788d}.bulk-marketing-box textarea{width:100%;border:1px solid #d9e4ee;border-radius:9px;padding:12px;font:13px 'DM Sans',sans-serif;resize:vertical}.bulk-import-row,.bulk-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:12px}.bulk-import-row input{max-width:220px}.bulk-preview{margin-top:12px;padding:12px;background:#fff;border:1px solid #e2ebf3;border-radius:9px;font-size:12px;color:#314968;max-height:190px;overflow:auto}.bulk-controls label{font-size:12px;font-weight:800;color:#314968}.bulk-controls select{padding:10px;border:1px solid #d9e4ee;border-radius:8px;background:white}.bulk-preview ol{margin:8px 0 0;padding-left:20px}.bulk-preview li{padding:3px 0}

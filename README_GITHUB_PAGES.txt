@@ -51,3 +51,19 @@ To enable an automatic reply after a customer messages the business, use WhatsAp
 - Quote and order messages sent from the contact form include the current public URL: https://parlpointict-hub.github.io/parlpointict-hub/
 
 The product photographs are illustrative mock-up images generated for the catalogue. They are not represented as actual completed client commissions or official client logos. Prices marked Quote / Negotiable require confirmation based on quantities, materials, artwork and specifications.
+
+
+MARKETING MESSAGE GENERATOR
+---------------------------
+The website now includes a Marketing Message Generator section in the navigation.
+Enter the recipient's name, position, organisation, phone number and/or email, then
+choose a Parlpoint ICT service and generate SMS, WhatsApp and email drafts. Each draft
+can be edited and copied. The Open SMS / Open WhatsApp / Open email buttons hand the
+prepared message to the visitor's device or messaging application. The user must review
+and press Send in that application.
+
+This is a static GitHub Pages feature. It does not send messages automatically, store
+prospect records, or report delivery/read status. Do not put messaging API keys or other
+secrets in this public website. Automatic sending requires secure server-side integration
+with approved SMS, WhatsApp Business Platform and email providers, plus appropriate
+recipient consent and opt-out handling.
