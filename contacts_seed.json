@@ -1,0 +1,674 @@
+[
+  {
+    "id": "85880fc84c31409dab6519c84f6633d4",
+    "category": "Schools",
+    "name": "The Kenya Excellent Centre and School",
+    "phone": "0722916174",
+    "email": "excellentkenya@gmail.com",
+    "status": "Active"
+  },
+  {
+    "id": "8fd7140df25e400fa313f5617d9e034b",
+    "category": "Schools",
+    "name": "Oasis Education Complex",
+    "phone": "0724527988",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "ff0c8fbbd89041b099a6137f0e99f98d",
+    "category": "Schools",
+    "name": "Marken Academy",
+    "phone": "0758030027",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "e653d9f7e2ab48e8b5d16a88572f8ae1",
+    "category": "Schools",
+    "name": "Al Ryan Academy",
+    "phone": "0181174333",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "d22e1c58860b489fadfa3a17e22c5e8b",
+    "category": "Schools",
+    "name": "Bahati Integrated Academy",
+    "phone": "0741900991",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "e61b6ab6be32418bb9bf46ed1b42cf77",
+    "category": "Schools",
+    "name": "The Gate of Life Academy",
+    "phone": "0701839532",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "ad121edd6fd14e2ba65f8a6bb6f52ba3",
+    "category": "Schools",
+    "name": "Abidalango Junior Academy",
+    "phone": "0715582776",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "aab32911eee745389e9e4e69a65c15d9",
+    "category": "Schools",
+    "name": "Kitaruni Academy",
+    "phone": "0720354971",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "607de2016d5143ecb32192e074f79163",
+    "category": "Schools",
+    "name": "Bethel Academy",
+    "phone": "0723790649",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "6e40c7c713844f898d6ea425e1672c0f",
+    "category": "Schools",
+    "name": "Blessed Academy",
+    "phone": "0724747335",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "c68d5a094fcf49bfbf6d6ea234c2dad2",
+    "category": "Schools",
+    "name": "Bright Junior Academy",
+    "phone": "0725088187",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "2f6d21e965b0440896af6f5ae68744d7",
+    "category": "Schools",
+    "name": "Everjoy Academy",
+    "phone": "0700882934",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "735aa6c7fab74601b1e8e2e5b85a2eae",
+    "category": "Schools",
+    "name": "Excellent Academy",
+    "phone": "0707227710",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "3db19fe3f10f43388b631b8af07bacbb",
+    "category": "Schools",
+    "name": "Firdhaus Academy",
+    "phone": "0724702405",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "f8f720739dbe4fb684c0f159162b9c72",
+    "category": "Schools",
+    "name": "Gracious Academy",
+    "phone": "0729770334",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "2b21f8a4d62046d3811caafeb9dfc110",
+    "category": "Schools",
+    "name": "Green Light Academy",
+    "phone": "0720852968",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "77717588d87946f6abdface50b38c7fd",
+    "category": "Schools",
+    "name": "Istiqama Academy",
+    "phone": "0707769547",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "5b785bf6113a45b09caeb542de76418d",
+    "category": "Schools",
+    "name": "Iyale Academy",
+    "phone": "0722220023",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "d51502788ec74750bbe2c0ad6c83b005",
+    "category": "Schools",
+    "name": "Izza Academy",
+    "phone": "0732633397",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "920af09ee751495687f40c9ec359bec9",
+    "category": "Schools",
+    "name": "JCC Academy",
+    "phone": "0717825279",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "c2ce30c442bf4a21a297fa220ef22bc2",
+    "category": "Schools",
+    "name": "Lake Start Academy",
+    "phone": "0714118488",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "eae95b2a28554eaaabba7ecd60e78da1",
+    "category": "Schools",
+    "name": "Lynet Junior Academy",
+    "phone": "0114282356",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "003277c9510141bbbbda16ef8d16e0e5",
+    "category": "Schools",
+    "name": "Maryland Junior Academy",
+    "phone": "0712252603",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "72a8fd241a994c6eb154abee119708ff",
+    "category": "Schools",
+    "name": "Bright Star Academy",
+    "phone": "0748125192",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "788fa2f39dc94d2a9093220001b51d73",
+    "category": "Schools",
+    "name": "Mudzalifa Academy",
+    "phone": "0729067919",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "458cc12d2df2405e837c2be386716964",
+    "category": "Schools",
+    "name": "Mwaweche Integrated Academy",
+    "phone": "0717017840",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "8ab96d74e36c44a194321f160fad32f5",
+    "category": "Schools",
+    "name": "Neema Junior School",
+    "phone": "0708402220",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "f2e521762e91482e9c320faed7e1ba52",
+    "category": "Schools",
+    "name": "New Vision Academy",
+    "phone": "0714543519",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "788d35347c564e4b9550bbbba0d256c7",
+    "category": "Schools",
+    "name": "Rasul Academy",
+    "phone": "0745760062",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "c970d63cefab493aa40cf6da714d5ab9",
+    "category": "Schools",
+    "name": "Royal Township Academy",
+    "phone": "0114610934",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "e495ab9e27044e929464c16929724f4a",
+    "category": "Schools",
+    "name": "St Lazarus Academy",
+    "phone": "0725922519",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "70440f8e53634a9781a2caa84ab35fd8",
+    "category": "Schools",
+    "name": "St Sisilia Academy",
+    "phone": "0717211045",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "66675774d9ec4d1986afff2addd52f6e",
+    "category": "Schools",
+    "name": "Star of Hope Academy",
+    "phone": "0726206154",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "28f541db64ef42a7b315d5219ae266e9",
+    "category": "Schools",
+    "name": "Trester Academy",
+    "phone": "0722862797",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "d089bf3d77a842979716ac3aa05cc531",
+    "category": "Schools",
+    "name": "Royal Springs Academy",
+    "phone": "0712085669",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "34056589abc24cd6b823562d092cc6ef",
+    "category": "Schools",
+    "name": "Emmaus Academy",
+    "phone": "0702618199",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "0e64df70cf03469db4ed070e57cdcb8f",
+    "category": "Schools",
+    "name": "Golden Talent Academy",
+    "phone": "0724290819",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "c14730ea4241469b96839d58debb5085",
+    "category": "Schools",
+    "name": "Tasleem School",
+    "phone": "0710536177",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "654e202e6e49482b8b058dc0c760eb2b",
+    "category": "Schools",
+    "name": "Bethania Academy",
+    "phone": "0728870061",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "2059fe51e98f411da4f80c12c3165442",
+    "category": "Schools",
+    "name": "Likoni Valentine Primary School",
+    "phone": "0712049700",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "ff7966a2afb6424b9614a7596a67118b",
+    "category": "Schools",
+    "name": "Vyemani Primary",
+    "phone": "0720202526",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "4644a79e058247709420e7090baadb9e",
+    "category": "Schools",
+    "name": "Great Destiny Academy",
+    "phone": "0752393265",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "796411e00483441dbe054629f4c73b02",
+    "category": "Schools",
+    "name": "Hekima High School",
+    "phone": "0722266006",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "352297bcdbdb4df78d82f1f3cf941282",
+    "category": "Schools",
+    "name": "Maran Centre and School",
+    "phone": "0712414347",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "214c980b1bfc4c22aaaed6a49282b94d",
+    "category": "Schools",
+    "name": "Majengo Mapya Junior School",
+    "phone": "0720256369",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "eabdf4c44e074dba88b77bf4b0bf762f",
+    "category": "Schools",
+    "name": "Mifta Madrassa and School",
+    "phone": "0723114748",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "d0c587a442f14b1e82b3b4b779dc0413",
+    "category": "Schools",
+    "name": "Mrima Primary School",
+    "phone": "0711886973",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "a54361fce29f49509989a04cb83105ee",
+    "category": "Schools",
+    "name": "Mwanazia Primary School",
+    "phone": "0724385325",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "848d18e7cc48425185e695f30ab1b26d",
+    "category": "Schools",
+    "name": "St Johns Academy",
+    "phone": "0791665274",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "d443bc3651dd411ab7b5e20955f94226",
+    "category": "Schools",
+    "name": "Timbwani Secondary School",
+    "phone": "0726619026",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "5f826fab9f5d4eca99836575ed3eb17a",
+    "category": "Schools",
+    "name": "Tumaini Junior School",
+    "phone": "0726996902",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "6589e307b68e4dee9c1661781030d4b4",
+    "category": "Schools",
+    "name": "Zenyth High School",
+    "phone": "0720964292",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "df84e790f84c4bd684ee62c84faeed96",
+    "category": "Schools",
+    "name": "Sea Coast Academy",
+    "phone": "0719236775",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "ed7364adc6e94cf4bbd4e7af5f469d13",
+    "category": "Schools",
+    "name": "Mkokoni ECDE Centre",
+    "phone": "0724595065",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "546b837e96c744d289c1b6c294b0d45f",
+    "category": "Schools",
+    "name": "Mtongwe Vocational Training Institute",
+    "phone": "0722302139",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "0491e21bddd0483ca676ce8327af3b89",
+    "category": "Schools",
+    "name": "Soan Education Centre",
+    "phone": "0710459000",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "8106be17b4624588b33a2085fbe03c3b",
+    "category": "Hospitals & Medical Centres",
+    "name": "Bomu Hospital",
+    "phone": "0734744400",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "23a7d048cd134d0ea5c89f27187732a0",
+    "category": "Hospitals & Medical Centres",
+    "name": "Diani Beach Hospital",
+    "phone": "0117515825",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "880e2baa43944da7809d1131f8b6e7e7",
+    "category": "Hospitals & Medical Centres",
+    "name": "Tha Royal Family Hospital",
+    "phone": "0719449491",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "590da5574eaa4032809fa557a8446d89",
+    "category": "Hospitals & Medical Centres",
+    "name": "Shellbeach Hospital",
+    "phone": "0741933755",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "57e5baa5d45f4fd690920cd7d36ae2a0",
+    "category": "Hospitals & Medical Centres",
+    "name": "St Thomas Maternity",
+    "phone": "0715544457",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "d8e2179816a544b08eb012f3adb6c33c",
+    "category": "Hospitals & Medical Centres",
+    "name": "Oven View Hospital",
+    "phone": "0708562002",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "0db1bcfe60bc4e65a880c83bb29bfc71",
+    "category": "Hospitals & Medical Centres",
+    "name": "The Royal Family Medical Centre",
+    "phone": "0707523666",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "9f3ce6a8d88644329c757c86803304d7",
+    "category": "Hospitals & Medical Centres",
+    "name": "Geca Medical Centre",
+    "phone": "0711955775",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "9d4a9fee05954d94a1b6012a1becd6e3",
+    "category": "Hospitals & Medical Centres",
+    "name": "Baraka Medical Centre",
+    "phone": "0725063391",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "c0a8fdf8745a41eaa1d0ce1512f05873",
+    "category": "Hospitals & Medical Centres",
+    "name": "Gift Medical Clinic",
+    "phone": "0741934480",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "859932412b5042198254e7eff7ae1beb",
+    "category": "Hospitals & Medical Centres",
+    "name": "Singawa Medical Centre",
+    "phone": "0738047134",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "7c6f4951c5bc486b8815636aedb14459",
+    "category": "Hospitals & Medical Centres",
+    "name": "Branna Medical Centre",
+    "phone": "0721761374",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "afd0d679b1524e069dc28f9821c9e793",
+    "category": "Hospitals & Medical Centres",
+    "name": "Brazil Medical Centre",
+    "phone": "0740844978",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "b26bb7e440df4119ad792dfb349a66f7",
+    "category": "Hospitals & Medical Centres",
+    "name": "Carlifonia Medical Centre",
+    "phone": "0721548767",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "8903a1f2d2644b82803c5f50b26c65e8",
+    "category": "Hospitals & Medical Centres",
+    "name": "Mwaweche Medical Centre",
+    "phone": "0702843582",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "eebb3827fcd246b9921af99de1033bc1",
+    "category": "Hospitals & Medical Centres",
+    "name": "EBenezar Medical Centre",
+    "phone": "0705883246",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "ad7c58a74cd943be939c6d850e6372e8",
+    "category": "Hospitals & Medical Centres",
+    "name": "Half London Medical Centre",
+    "phone": "0707389421",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "5f0323408306440bad63870ca9330e69",
+    "category": "Hospitals & Medical Centres",
+    "name": "Joycare Medical Centre",
+    "phone": "0726732765",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "071f3177f88b4a4d97876d42da656320",
+    "category": "Hospitals & Medical Centres",
+    "name": "Marere Medical Centre",
+    "phone": "0720618898",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "d9048af38f24458a94c552a062d52899",
+    "category": "Hospitals & Medical Centres",
+    "name": "Mwangoloto Medical Centre",
+    "phone": "0797837728",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "954515d12fd642d6928a34c1351b5c1a",
+    "category": "Hospitals & Medical Centres",
+    "name": "Paradise Medical Centre",
+    "phone": "0791514176",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "dedc2c4cca5540cd8c83d670d4a5efae",
+    "category": "Hospitals & Medical Centres",
+    "name": "Poneni Medical Centre",
+    "phone": "0729875183",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "10eea546d59f4c0daed0bb14521958a8",
+    "category": "Hospitals & Medical Centres",
+    "name": "Savani Medical Centre",
+    "phone": "0721246250",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "5b4859b1dd954e26923bd4c166141658",
+    "category": "Hospitals & Medical Centres",
+    "name": "Toriah Medical Centre",
+    "phone": "0759554837",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "5cc407ca22a742449dec718cd2952b86",
+    "category": "Hospitals & Medical Centres",
+    "name": "Mtongwe Afya Bora Nursing Home",
+    "phone": "0721243023",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "f1633eb818f8480e90b7dfbfc9064e63",
+    "category": "Ultrasound & X-ray Imaging Centres",
+    "name": "Irad Imaging Centre",
+    "phone": "0743987470",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "4f0c248c99cf4d6b9ed7200c45468943",
+    "category": "Ultrasound & X-ray Imaging Centres",
+    "name": "Ice Cold Imaging Centre",
+    "phone": "0729309167",
+    "email": "",
+    "status": "Active"
+  },
+  {
+    "id": "1762c8efb9ab40cdaf7ca395c11aefe5",
+    "category": "Ultrasound & X-ray Imaging Centres",
+    "name": "Inland Medical Centre - Ultrasound/X-ray Services",
+    "phone": "0713310275",
+    "email": "",
+    "status": "Active"
+  }
+]

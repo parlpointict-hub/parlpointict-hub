@@ -36,6 +36,12 @@ Cloudflare Pages free-plan limits: https://developers.cloudflare.com/pages/platf
 - `manuals/PHARMAFLOW_User_Manual.pdf`
 
 
+
+## Marketing campaign preparation and approval
+The Marketing area can generate personalised campaign drafts in bulk for selected active contacts. Choose WhatsApp, SMS or email, generate all eligible drafts, edit each message, and tick the approval checkbox before opening a draft in the relevant application. The website never sends messages itself: the user must review the opened draft and press Send. Invalid or missing channel details are excluded from the prepared queue.
+
+The existing single-recipient message generator remains available. Campaign drafts are prepared in the browser and are not synchronised between devices.
+
 ## Contact form and WhatsApp
 The contact form prepares the visitor's message and opens the selected WhatsApp, email or SMS app. The visitor must press Send in that app. A static website cannot send messages directly in the background or trigger an automatic WhatsApp reply.
 
@@ -67,3 +73,23 @@ prospect records, or report delivery/read status. Do not put messaging API keys 
 secrets in this public website. Automatic sending requires secure server-side integration
 with approved SMS, WhatsApp Business Platform and email providers, plus appropriate
 recipient consent and opt-out handling.
+
+
+CONTACT MANAGEMENT UPDATE
+-------------------------
+The marketing area now includes a contact manager with separate tabs for
+Schools, Hospitals & Medical Centres, and Ultrasound & X-ray Imaging Centres.
+It supports search by organisation or phone, add/edit/delete, activate/deactivate,
+selection, active-recipient campaign filtering, and CSV import/export.
+
+The initial contact list is loaded from contacts_seed.json on first visit.
+Subsequent changes are stored in the visitor's browser localStorage. This is a
+static-site implementation: records are not synchronised between devices or
+users and clearing browser data can remove locally saved changes. Export CSV
+regularly for backup. For secure shared access, authentication, audit history,
+and centrally stored contacts, connect a backend database/API.
+
+Campaign preparation opens one recipient at a time in the user's SMS, WhatsApp
+or email application. It does not provide automatic bulk delivery. Automated
+sending requires approved SMS/WhatsApp/email providers, credentials, consent
+controls, and backend integration.

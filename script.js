@@ -193,74 +193,66 @@ If you prefer not to receive further marketing emails from us, reply and let us 
   }));
 }
 
-// Bulk campaign helper: prepares a personalised draft for each selected school/customer.
+
+
+// Contact management: local browser database, CSV import/export and reviewed campaign hand-off.
 (() => {
-  const listInput = document.getElementById('bulkRecipients');
-  if (!listInput) return;
-  const preview = document.getElementById('bulkRecipientPreview');
-  const loadButton = document.getElementById('loadBulkList');
-  const startButton = document.getElementById('startBulkSend');
-  const csvInput = document.getElementById('bulkCsv');
-  let recipients = [];
-  let queue = [];
-  let queueIndex = 0;
-  const clean = s => (s || '').trim();
-  const phoneDigits = raw => {
-    let n = clean(raw).replace(/[^0-9+]/g, '');
-    if (n.startsWith('+')) n = n.slice(1);
-    if (n.startsWith('0')) n = '254' + n.slice(1);
-    if (n.startsWith('7') || n.startsWith('1')) n = '254' + n;
-    return /^254[17]\d{8}$/.test(n) ? n : '';
+  const manager = document.getElementById('contactManager');
+  if (!manager) return;
+  const CATEGORIES = ['Schools', 'Hospitals & Medical Centres', 'Ultrasound & X-ray Imaging Centres'];
+  const STORAGE_KEY = 'parlpoint_contacts_v1';
+  const $ = id => document.getElementById(id);
+  const status = message => { $('contactManagerStatus').textContent = message; };
+  const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  const makeId = () => 'c_' + Date.now().toString(36) + Math.random().toString(36).slice(2,8);
+  let contacts = [];
+  let activeCategory = CATEGORIES[0];
+  let selected = new Set();
+  let campaignQueue = [];
+  let campaignIndex = 0;
+  const persist = () => { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(contacts)); } catch { status('Could not save in this browser. Export the contacts to keep a backup.'); } };
+  const parseCSV = text => {
+    const rows=[]; let row=[], cell='', quoted=false;
+    for(let i=0;i<text.length;i++) { const ch=text[i]; if(quoted) { if(ch==='"' && text[i+1]==='"'){cell+='"';i++;} else if(ch==='"') quoted=false; else cell+=ch; } else if(ch==='"') quoted=true; else if(ch===','){row.push(cell);cell='';} else if(ch==='\n'){row.push(cell);rows.push(row);row=[];cell='';} else if(ch!=='\r') cell+=ch; }
+    row.push(cell); if(row.some(v=>v.trim())) rows.push(row); return rows;
   };
-  const parseRows = text => text.split(/\r?\n/).map(line => {
-    const cols = line.split(',').map(clean);
-    if (!cols[0] || /^(school|organisation|organization|name)$/i.test(cols[0])) return null;
-    return {name: cols[0], phone: cols[1] || '', email: cols[2] || ''};
-  }).filter(Boolean);
-  const renderPreview = () => {
-    const valid = recipients.filter(r => r.name);
-    preview.innerHTML = valid.length ? `<strong>${valid.length} recipient(s) loaded</strong><ol>${valid.map(r => `<li>${escapeHtml(r.name)} — ${escapeHtml(r.phone || 'No phone')} — ${escapeHtml(r.email || 'No email')}</li>`).join('')}</ol>` : 'No valid recipients found. Add school name, phone number and optional email.';
-    startButton.disabled = !valid.length;
+  const csvCell = v => '"' + String(v ?? '').replace(/"/g,'""') + '"';
+  const saveBlob = (content, filename, type) => { const blob=new Blob([content],{type}); const url=URL.createObjectURL(blob); const a=document.createElement('a');a.href=url;a.download=filename;a.click();URL.revokeObjectURL(url); };
+  const currentVisible = () => { const q=$('contactSearch').value.trim().toLowerCase(), f=$('contactStatusFilter').value; return contacts.filter(c=>c.category===activeCategory && (f==='all'||c.status===f) && (!q||c.name.toLowerCase().includes(q)||c.phone.toLowerCase().includes(q))); };
+  const render = () => {
+    const rows=currentVisible();
+    $('contactTableBody').innerHTML = rows.map(c=>`<tr><td><input type="checkbox" class="contact-select" data-id="${escapeHtml(c.id)}" ${selected.has(c.id)?'checked':''} aria-label="Select ${escapeHtml(c.name)}"></td><td><strong>${escapeHtml(c.name)}</strong></td><td>${escapeHtml(c.phone||'—')}</td><td>${escapeHtml(c.email||'—')}</td><td><span class="contact-pill ${c.status==='Active'?'is-active':'is-inactive'}">${escapeHtml(c.status)}</span></td><td class="contact-row-actions"><button type="button" data-action="edit" data-id="${escapeHtml(c.id)}">Edit</button><button type="button" data-action="toggle" data-id="${escapeHtml(c.id)}">${c.status==='Active'?'Deactivate':'Activate'}</button><button type="button" data-action="delete" data-id="${escapeHtml(c.id)}">Delete</button></td></tr>`).join('') || '<tr><td colspan="6" class="contact-empty">No contacts match this category and filter.</td></tr>';
+    $('contactListTitle').textContent=activeCategory;
+    $('contactFilteredCount').textContent=`${rows.length} shown`;
+    $('contactTotal').textContent=`${contacts.length} total contacts`;
+    $('selectedContactCount').textContent=selected.size;
+    $('selectVisibleContacts').checked=rows.length>0 && rows.every(c=>selected.has(c.id));
+    $('selectAllActive').checked=contacts.filter(c=>c.category===activeCategory&&c.status==='Active').length>0 && contacts.filter(c=>c.category===activeCategory&&c.status==='Active').every(c=>selected.has(c.id));
+    $('startContactCampaign').disabled=selected.size===0;
   };
-  const escapeHtml = value => String(value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
-  loadButton?.addEventListener('click', () => { recipients = parseRows(listInput.value); renderPreview(); });
-  csvInput?.addEventListener('change', async () => {
-    const file = csvInput.files?.[0]; if (!file) return;
-    listInput.value = await file.text(); recipients = parseRows(listInput.value); renderPreview();
-  });
-  const campaignDraft = (recipient, channel) => {
-    const service = document.getElementById('marketingService')?.value || 'ICT solutions';
-    const benefit = clean(document.getElementById('marketingBenefit')?.value);
-    const hello = `Dear ${recipient.name},`;
-    const benefitText = benefit ? `\n\n${benefit}` : '';
-    if (channel === 'sms') return `${hello} Parlpoint ICT offers ${service.toLowerCase()} to help your organisation work more efficiently.${benefit ? ' ' + benefit : ''} May we arrange a brief demonstration? Call/SMS 0114343661 or WhatsApp 0754910014.`;
-    if (channel === 'whatsapp') return `${hello}\n\nGreetings from Parlpoint ICT Ltd. We provide ${service.toLowerCase()} to help ${recipient.name} simplify daily operations, improve organisation and make better use of technology.${benefitText}\n\nMay we arrange a brief demonstration or discussion at your convenience?\n\nKind regards,\nParlpoint ICT Ltd\nCall/SMS: 0114343661\nWhatsApp: 0754910014\nEmail: parlpointict@gmail.com\nWebsite: https://parlpointict-hub.github.io/parlpointict-hub/\n\nIf you do not wish to receive further business updates, please let us know.`;
-    return `${hello}\n\nI am contacting you on behalf of Parlpoint ICT Ltd to introduce our ${service.toLowerCase()}. We help schools, businesses and other organisations improve their daily operations through practical digital solutions.${benefitText}\n\nWe would appreciate an opportunity to arrange a brief demonstration at a time convenient to you. Please let us know if you would be interested.\n\nKind regards,\nParlpoint ICT Ltd\nCall/SMS: 0114343661\nWhatsApp: 0754910014\nEmail: parlpointict@gmail.com\nWebsite: https://parlpointict-hub.github.io/parlpointict-hub/\n\nIf you prefer not to receive further marketing emails from us, reply and let us know.`;
-  };
-  const openNext = () => {
-    if (queueIndex >= queue.length) { preview.insertAdjacentHTML('beforeend', '<p><strong>Campaign queue completed.</strong> All selected drafts have been opened for review.</p>'); return; }
-    const item = queue[queueIndex]; const channel = document.getElementById('bulkChannel').value;
-    const phone = phoneDigits(item.phone);
-    const msg = campaignDraft(item, channel);
-    if ((channel === 'sms' || channel === 'whatsapp') && !phone) { alert(`Add a valid Kenyan phone number for ${item.name} before continuing.`); return; }
-    if (channel === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(item.email)) { alert(`Add a valid email address for ${item.name} before continuing.`); return; }
-    if (channel === 'whatsapp') window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
-    if (channel === 'sms') window.location.href = `sms:+${phone}?body=${encodeURIComponent(msg)}`;
-    if (channel === 'email') window.location.href = `mailto:${encodeURIComponent(item.email)}?subject=${encodeURIComponent('Introducing ' + (document.getElementById('marketingService')?.value || 'ICT solutions') + ' | Parlpoint ICT Ltd')}&body=${encodeURIComponent(msg)}`;
-    queueIndex++;
-    const next = document.getElementById('bulkNextRecipient');
-    if (next) next.textContent = queueIndex < queue.length ? `Open next recipient (${queueIndex + 1} of ${queue.length})` : 'Campaign queue completed';
-    preview.insertAdjacentHTML('beforeend', `<p>Prepared ${escapeHtml(item.name)} (${queueIndex} of ${queue.length}). Review and press Send in the opened app.</p>`);
-  };
-  startButton?.addEventListener('click', () => {
-    const channel = document.getElementById('bulkChannel').value;
-    queue = recipients.filter(r => channel === 'email' ? /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(r.email) : !!phoneDigits(r.phone));
-    queueIndex = 0;
-    if (!queue.length) { preview.insertAdjacentHTML('beforeend', '<p>No recipients have valid contact details for this channel.</p>'); return; }
-    let next = document.getElementById('bulkNextRecipient');
-    if (!next) { next = document.createElement('button'); next.type = 'button'; next.id = 'bulkNextRecipient'; next.className = 'btn btn-primary'; startButton.insertAdjacentElement('afterend', next); }
-    next.textContent = `Open first recipient (1 of ${queue.length})`;
-    next.onclick = openNext;
-    preview.insertAdjacentHTML('beforeend', `<p><strong>${queue.length} recipients ready.</strong> Use the button to open each personalised ${channel.toUpperCase()} draft one by one. You must review and press Send yourself.</p>`);
-  });
+  const resetEditor = () => { $('contactEditor').reset(); $('editContactId').value=''; $('editContactStatus').value='Active'; $('saveContact').textContent='Add contact'; $('cancelContactEdit').hidden=true; };
+  const beginEdit = c => { $('editContactId').value=c.id; $('editContactName').value=c.name; $('editContactPhone').value=c.phone; $('editContactEmail').value=c.email; $('editContactStatus').value=c.status; $('saveContact').textContent='Update contact'; $('cancelContactEdit').hidden=false; $('editContactName').focus(); };
+  const normalisePhone = raw => { let n=(raw||'').replace(/[^0-9+]/g,''); if(n.startsWith('+'))n=n.slice(1); if(n.startsWith('0'))n='254'+n.slice(1); if(n.startsWith('7')||n.startsWith('1'))n='254'+n; return /^254[17]\d{8}$/.test(n)?n:''; };
+  const setCategory = category => { activeCategory=category; selected=new Set([...selected].filter(id=>contacts.some(c=>c.id===id))); document.querySelectorAll('.contact-tab').forEach(b=>{const on=b.dataset.category===category;b.classList.toggle('active',on);b.setAttribute('aria-selected',String(on));}); render(); };
+  $('contactEditor').addEventListener('submit', e=>{e.preventDefault(); const id=$('editContactId').value; const item={id:id||makeId(),category:activeCategory,name:$('editContactName').value.trim(),phone:$('editContactPhone').value.trim(),email:$('editContactEmail').value.trim(),status:$('editContactStatus').value}; if(!item.name){status('Organisation name is required.');return;} if(id){const i=contacts.findIndex(c=>c.id===id);if(i>=0)contacts[i]=item;status('Contact updated.');}else{contacts.push(item);status('Contact added.');} persist();resetEditor();render();});
+  $('cancelContactEdit').addEventListener('click',resetEditor);
+  document.querySelectorAll('.contact-tab').forEach(b=>b.addEventListener('click',()=>setCategory(b.dataset.category)));
+  $('contactSearch').addEventListener('input',render); $('contactStatusFilter').addEventListener('change',render);
+  $('contactTableBody').addEventListener('change',e=>{if(e.target.matches('.contact-select')){const id=e.target.dataset.id;e.target.checked?selected.add(id):selected.delete(id);render();}});
+  $('contactTableBody').addEventListener('click',e=>{const b=e.target.closest('button[data-action]');if(!b)return;const c=contacts.find(x=>x.id===b.dataset.id);if(!c)return;if(b.dataset.action==='edit')beginEdit(c);if(b.dataset.action==='toggle'){c.status=c.status==='Active'?'Inactive':'Active';persist();render();status(`${c.name} is now ${c.status.toLowerCase()}.`);}if(b.dataset.action==='delete'&&confirm(`Delete ${c.name} from the contact database?`)){contacts=contacts.filter(x=>x.id!==c.id);selected.delete(c.id);persist();render();status('Contact deleted.');}});
+  $('selectVisibleContacts').addEventListener('change',e=>{currentVisible().forEach(c=>e.target.checked?selected.add(c.id):selected.delete(c.id));render();});
+  $('selectAllActive').addEventListener('change',e=>{contacts.filter(c=>c.category===activeCategory&&c.status==='Active').forEach(c=>e.target.checked?selected.add(c.id):selected.delete(c.id));render();});
+  $('deleteSelectedContacts').addEventListener('click',()=>{if(!selected.size){status('Select at least one contact first.');return;}if(!confirm(`Permanently delete ${selected.size} selected contact(s)?`))return;contacts=contacts.filter(c=>!selected.has(c.id));selected.clear();persist();render();status('Selected contacts deleted.');});
+  $('exportContacts').addEventListener('click',()=>{const rows=contacts.filter(c=>c.category===activeCategory);const head=['category','organisation_name','phone','email','status'];const csv=[head,...rows.map(c=>[c.category,c.name,c.phone,c.email,c.status])].map(r=>r.map(csvCell).join(',')).join('\r\n');saveBlob('\ufeff'+csv,activeCategory.toLowerCase().replace(/[^a-z0-9]+/g,'_')+'_contacts.csv','text/csv;charset=utf-8');status(`Exported ${rows.length} ${activeCategory.toLowerCase()} contacts.`);});
+  $('importContactsFile').addEventListener('change',async e=>{const file=e.target.files?.[0];if(!file)return;try{const rows=parseCSV(await file.text());if(!rows.length)throw new Error('The file is empty.');const headers=rows.shift().map(h=>h.trim().toLowerCase().replace(/^\ufeff/,''));const idx=(...names)=>headers.findIndex(h=>names.includes(h));const ni=idx('organisation_name','organisation name','organization_name','name'),ci=idx('category'),pi=idx('phone','phone_number'),ei=idx('email'),si=idx('status');if(ni<0)throw new Error('CSV must include an organisation_name or name column.');let added=0,updated=0;rows.forEach(r=>{const name=(r[ni]||'').trim();if(!name)return;const cat=ci>=0&&CATEGORIES.includes((r[ci]||'').trim())?(r[ci]||'').trim():activeCategory;const phone=pi>=0?(r[pi]||'').trim():'';const email=ei>=0?(r[ei]||'').trim():'';const st=si>=0&&/^inactive$/i.test(r[si]||'')?'Inactive':'Active';const old=contacts.find(c=>c.category===cat&&c.name.toLowerCase()===name.toLowerCase());if(old){old.phone=phone||old.phone;old.email=email||old.email;old.status=st;updated++;}else{contacts.push({id:makeId(),category:cat,name,phone,email,status:st});added++;}});persist();render();status(`CSV import complete: ${added} added, ${updated} updated.`);}catch(err){status(`Import failed: ${err.message}`);}e.target.value='';});
+  $('useSelectedContacts').addEventListener('click',()=>{const chosen=contacts.filter(c=>selected.has(c.id));if(!chosen.length){status('Select contacts first.');return;}const first=chosen[0];$('prospectOrg').value=first.name;$('prospectPhone').value=first.phone||'';$('prospectEmail').value=first.email||'';$('contactCampaign').scrollIntoView({behavior:'smooth',block:'center'});status(`${chosen.length} contact(s) selected. Campaign drafts can now be generated in one step.`);});
+  const campaignMessage = (c,channel) => {const service=$('marketingService').value;const benefit=$('marketingBenefit').value.trim();const extra=benefit?'\n\n'+benefit:'';if(channel==='sms')return `Dear ${c.name}, Parlpoint ICT offers ${service.toLowerCase()} to help your organisation work more efficiently.${benefit?' '+benefit:''} May we arrange a brief demonstration? Call/SMS 0114343661. Reply STOP if you do not wish to receive further updates.`;if(channel==='whatsapp')return `Dear ${c.name},\n\nGreetings from Parlpoint ICT Ltd. We provide ${service.toLowerCase()} to help organisations improve daily operations.${extra}\n\nMay we arrange a brief discussion or demonstration?\n\nKind regards,\nParlpoint ICT Ltd\nCall/SMS: 0114343661\nWhatsApp: 0754910014\nEmail: parlpointict@gmail.com\nWebsite: https://parlpointict-hub.github.io/parlpointict-hub/\n\nIf you do not wish to receive further business updates, please let us know.`;return `Dear ${c.name},\n\nI am contacting you on behalf of Parlpoint ICT Ltd to introduce our ${service.toLowerCase()}. We provide practical ICT and digital solutions for organisations.${extra}\n\nWould you be available for a brief discussion or demonstration?\n\nKind regards,\nParlpoint ICT Ltd\nCall/SMS: 0114343661\nWhatsApp: 0754910014\nEmail: parlpointict@gmail.com\nWebsite: https://parlpointict-hub.github.io/parlpointict-hub/\n\nIf you prefer not to receive further marketing emails, reply and let us know.`;};
+  const renderCampaignDrafts = () => {const box=$('campaignDraftList');box.innerHTML=campaignQueue.map((item,i)=>`<article class="campaign-draft" data-campaign-index="${i}"><div class="campaign-draft-top"><strong>${i+1}. ${escapeHtml(item.contact.name)}</strong><label><input type="checkbox" class="campaign-approve" data-index="${i}" ${item.approved?'checked':''}> I approve this message</label></div><div class="campaign-draft-meta">${escapeHtml(item.contact.phone||item.contact.email||'No destination')}</div><textarea class="campaign-draft-text" data-index="${i}" rows="5" aria-label="Draft message for ${escapeHtml(item.contact.name)}">${escapeHtml(item.message)}</textarea><div class="campaign-draft-actions"><button type="button" class="btn btn-outline-dark campaign-copy" data-index="${i}">Copy draft</button><button type="button" class="btn btn-primary campaign-open" data-index="${i}" ${item.approved?'':'disabled'}>Open in ${item.channel==='whatsapp'?'WhatsApp':item.channel==='sms'?'SMS':'email'}</button></div></article>`).join('');};
+  $('startContactCampaign').addEventListener('click',()=>{const channel=$('contactCampaignChannel').value;const eligible=contacts.filter(c=>selected.has(c.id)&&c.status==='Active'&&(channel==='email'?/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(c.email):!!normalisePhone(c.phone)));campaignQueue=eligible.map(contact=>({contact,channel,message:campaignMessage(contact,channel),approved:false}));campaignIndex=0;if(!campaignQueue.length){$('contactCampaignStatus').textContent='No selected active contacts have valid details for this channel.';$('nextContactCampaign').hidden=true;$('campaignDraftList').innerHTML='';return;}renderCampaignDrafts();$('nextContactCampaign').hidden=false;$('nextContactCampaign').textContent='Open next approved draft';$('contactCampaignStatus').textContent=`Prepared ${campaignQueue.length} personalised draft(s). Review each message, edit if needed, and tick approval before opening it. No message has been sent.`;});
+  $('campaignDraftList').addEventListener('input',e=>{if(e.target.matches('.campaign-draft-text')){const i=Number(e.target.dataset.index);if(campaignQueue[i])campaignQueue[i].message=e.target.value;}});
+  $('campaignDraftList').addEventListener('change',e=>{if(e.target.matches('.campaign-approve')){const i=Number(e.target.dataset.index);if(campaignQueue[i])campaignQueue[i].approved=e.target.checked;const card=e.target.closest('.campaign-draft');card.querySelector('.campaign-open').disabled=!e.target.checked;}});
+  $('campaignDraftList').addEventListener('click',e=>{const copy=e.target.closest('.campaign-copy'),open=e.target.closest('.campaign-open');if(copy){const item=campaignQueue[Number(copy.dataset.index)];if(item)navigator.clipboard?.writeText(item.message).then(()=>{$('contactCampaignStatus').textContent='Draft copied to clipboard.';}).catch(()=>{$('contactCampaignStatus').textContent='Copy was blocked by the browser; select and copy the draft text.';});}if(open){const i=Number(open.dataset.index);openCampaignDraft(i);}});
+  const openCampaignDraft = i => {const item=campaignQueue[i];if(!item||!item.approved)return;const c=item.contact,phone=normalisePhone(c.phone),msg=item.message;if(item.channel==='whatsapp')window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`,'_blank','noopener');else if(item.channel==='sms')window.location.href=`sms:+${phone}?body=${encodeURIComponent(msg)}`;else window.location.href=`mailto:${encodeURIComponent(c.email)}?subject=${encodeURIComponent('Introducing '+$('marketingService').value+' | Parlpoint ICT Ltd')}&body=${encodeURIComponent(msg)}`;campaignIndex=Math.max(campaignIndex,i+1);$('contactCampaignStatus').textContent=`Opened approved draft for ${c.name}. Check the message and press Send in the app yourself. This website has not sent it.`;};
+  $('nextContactCampaign').addEventListener('click',()=>{const next=campaignQueue.findIndex((item,i)=>i>=campaignIndex&&item.approved);if(next<0){$('contactCampaignStatus').textContent='No more approved drafts are waiting. Approve another draft or finish the campaign.';$('nextContactCampaign').hidden=true;return;}openCampaignDraft(next);});
+  fetch('contacts_seed.json').then(r=>{if(!r.ok)throw new Error('seed unavailable');return r.json();}).then(seed=>{let saved=null;try{saved=localStorage.getItem(STORAGE_KEY);}catch{}contacts=saved?JSON.parse(saved):seed;contacts=contacts.map(c=>({...c,id:c.id||makeId(),status:c.status==='Inactive'?'Inactive':'Active'}));if(!saved)persist();render();}).catch(()=>{try{contacts=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');}catch{contacts=[];}render();status('Could not load the starter CSV data. Import your CSV files to populate the contact list.');});
 })();

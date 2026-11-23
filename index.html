@@ -261,14 +261,33 @@
             </div>
             <button class="btn btn-primary marketing-generate" type="submit">Generate all 3 messages <span>✦</span></button>
             <p class="marketing-help">Messages are prepared for your review. Always confirm the recipient is happy to receive business updates and respect requests not to be contacted.</p>
-            <div class="bulk-marketing-box">
-              <h3>Bulk school &amp; customer list</h3>
-              <p>Add one recipient per line using: <strong>School name, phone number, email (optional)</strong>. You can also import a CSV file with these columns.</p>
-              <textarea id="bulkRecipients" rows="7" placeholder="Likoni Academy, 0712345678, admin@likoniacademy.co.ke&#10;Shikaadabu School, 0722334455, office@shikaadabu.co.ke"></textarea>
-              <div class="bulk-import-row"><label class="btn btn-outline-dark" for="bulkCsv">Import CSV</label><input id="bulkCsv" type="file" accept=".csv,text/csv" hidden><button type="button" class="btn btn-outline-dark" id="loadBulkList">Load recipient list</button></div>
-              <div id="bulkRecipientPreview" class="bulk-preview" aria-live="polite">No recipient list loaded yet.</div>
-              <div class="bulk-controls"><label for="bulkChannel">Sending channel</label><select id="bulkChannel"><option value="whatsapp">WhatsApp</option><option value="sms">SMS</option><option value="email">Email</option></select><button type="button" class="btn btn-primary" id="startBulkSend" disabled>Prepare campaign</button></div>
-              <p class="marketing-help">The system opens one recipient at a time for you to review and press Send. It does not silently send bulk messages. Contact only people who have agreed to receive your business updates.</p>
+            <div class="bulk-marketing-box contact-manager" id="contactManager">
+              <div class="contact-manager-heading"><div><p class="eyebrow">Contact database</p><h3>Organisation contact management</h3><p>Manage your school, hospital and imaging-centre contacts. Changes are saved in this browser.</p></div><div class="contact-count" id="contactTotal">Loading contacts…</div></div>
+              <div class="contact-tabs" role="tablist" aria-label="Contact categories">
+                <button type="button" class="contact-tab active" data-category="Schools" role="tab" aria-selected="true">Schools</button>
+                <button type="button" class="contact-tab" data-category="Hospitals & Medical Centres" role="tab" aria-selected="false">Hospitals</button>
+                <button type="button" class="contact-tab" data-category="Ultrasound & X-ray Imaging Centres" role="tab" aria-selected="false">Imaging Centres</button>
+              </div>
+              <div class="contact-toolbar">
+                <input id="contactSearch" type="search" placeholder="Search organisation name or phone number" aria-label="Search contacts">
+                <select id="contactStatusFilter" aria-label="Filter by active status"><option value="all">All statuses</option><option value="Active">Active only</option><option value="Inactive">Inactive only</option></select>
+                <button type="button" class="btn btn-outline-dark" id="exportContacts">Export CSV</button>
+                <label class="btn btn-outline-dark" for="importContactsFile">Import CSV</label><input id="importContactsFile" type="file" accept=".csv,text/csv" hidden>
+              </div>
+              <form id="contactEditor" class="contact-editor">
+                <input type="hidden" id="editContactId">
+                <div><label for="editContactName">Organisation name</label><input id="editContactName" required placeholder="Organisation name"></div>
+                <div><label for="editContactPhone">Phone number</label><input id="editContactPhone" type="tel" placeholder="e.g. 0712345678"></div>
+                <div><label for="editContactEmail">Email address</label><input id="editContactEmail" type="email" placeholder="name@example.com"></div>
+                <div><label for="editContactStatus">Status</label><select id="editContactStatus"><option>Active</option><option>Inactive</option></select></div>
+                <div class="contact-editor-actions"><button class="btn btn-primary" type="submit" id="saveContact">Add contact</button><button class="btn btn-outline-dark" type="button" id="cancelContactEdit" hidden>Cancel edit</button></div>
+              </form>
+              <div class="contact-list-heading"><strong id="contactListTitle">Schools</strong><span id="contactFilteredCount"></span></div>
+              <div class="contact-table-wrap"><table class="contact-table"><thead><tr><th><input type="checkbox" id="selectVisibleContacts" aria-label="Select all visible contacts"></th><th>Organisation</th><th>Phone</th><th>Email</th><th>Status</th><th>Actions</th></tr></thead><tbody id="contactTableBody"></tbody></table></div>
+              <div class="contact-bulk-actions"><label><input type="checkbox" id="selectAllActive"> Select all active in this category</label><button type="button" class="btn btn-outline-dark" id="deleteSelectedContacts">Delete selected</button><button type="button" class="btn btn-primary" id="useSelectedContacts">Review selected campaign (<span id="selectedContactCount">0</span>)</button></div>
+              <p class="contact-status" id="contactManagerStatus" role="status" aria-live="polite">Contact list ready.</p>
+              <div class="contact-campaign"><h4>Automatically prepare a campaign for selected contacts</h4><p>Choose a channel and prepare personalised drafts for every selected active contact with valid details. Review and approve each draft below before opening it in your messaging app. Nothing is sent automatically.</p><div class="contact-campaign-controls"><select id="contactCampaignChannel" aria-label="Campaign channel"><option value="whatsapp">WhatsApp</option><option value="sms">SMS</option><option value="email">Email</option></select><button type="button" class="btn btn-primary" id="startContactCampaign" disabled>Generate all campaign drafts</button><button type="button" class="btn btn-outline-dark" id="nextContactCampaign" hidden>Open next approved draft</button></div><div id="contactCampaignStatus" class="contact-status" aria-live="polite"></div><div id="campaignDraftList" class="campaign-draft-list" aria-live="polite"></div></div>
+              <p class="marketing-help">CSV format: category, organisation_name, phone, email, status. Existing records are loaded on first visit. Browser storage is local to this device/browser; use Export CSV for backups. For shared multi-user access, a secure backend database is required.</p>
             </div>
           </form>
           <div class="marketing-results" id="marketingResults" aria-live="polite">
